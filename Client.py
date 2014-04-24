@@ -1,7 +1,6 @@
 __author__ = 'Vincent Bathellier'
 import http.client
 
-
 #fonction qui récupére un stript à  éxecuter
 def task():
     script = input("Entrez le script à éxécuter : ")
@@ -24,5 +23,5 @@ def ask(addIP):
     askServ.connect()
     askServ.request('GET',requete)
     chargeServ = askServ.getresponse()
-    if chargeServ.status == httplibOK:
+    if chargeServ.status == httpOK:
          printText(chargeServ.read())
