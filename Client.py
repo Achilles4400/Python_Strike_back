@@ -4,6 +4,9 @@ import http.client
 
 from celery import Celery
 
+
+fileIP = input("Entrez le fichier d'adresse IP : ")
+host = openIP(fileIP)
 tache = Celery('tasks', broker='amqp://guest:' + host + ':1025//')
 
 
@@ -11,7 +14,7 @@ tache = Celery('tasks', broker='amqp://guest:' + host + ':1025//')
 def ask(addressIP):
     askserv = http.client.HTTPConnection(addressIP, 1025)
     askserv.connect()
-    askserv.request('GET', 'index.html')
+    askserv.request('GET', "chargeCPU.html")
     charge = askServ.getresponse()
     if charge.status == 200:  #200 correspond au status OK
         return charge.read()
@@ -25,6 +28,7 @@ def openIP(filename):
     for lines in file:
         IPviable = lines
         charge = ask(lines)
+    file.close()
     return IPviable
 
 
@@ -48,5 +52,3 @@ def api():
     return result.get()
 
 
-fileIP = input("Entrez le fichier d'adresse IP : ")
-host = openIP(fileIP)
