@@ -46,7 +46,7 @@
       <file leaf-file-name="server.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="21" column="0" selection-start="452" selection-end="452" vertical-scroll-proportion="0.57954544" vertical-offset="0" max-vertical-offset="616">
+            <state line="6" column="50" selection-start="169" selection-end="169" vertical-scroll-proportion="0.16558442" vertical-offset="0" max-vertical-offset="616">
               <folding>
                 <element signature="e#35#44#0" expanded="true" />
               </folding>
@@ -70,8 +70,8 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/Main.py" />
-        <option value="$PROJECT_DIR$/server.py" />
         <option value="$PROJECT_DIR$/Client.py" />
+        <option value="$PROJECT_DIR$/server.py" />
       </list>
     </option>
   </component>
@@ -561,7 +561,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="0" selection-start="452" selection-end="452" vertical-scroll-proportion="0.57954544" vertical-offset="0" max-vertical-offset="616">
+        <state line="6" column="50" selection-start="169" selection-end="169" vertical-scroll-proportion="0.16558442" vertical-offset="0" max-vertical-offset="616">
           <folding>
             <element signature="e#35#44#0" expanded="true" />
           </folding>

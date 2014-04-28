@@ -3,7 +3,8 @@ __author__ = 'Vincent Bathellier'
 import os
 from flask import Flask
 
-
+#trouver ce qu'il faut mettre à la place de proj
+os.system("celery -A proj worker --loglevel=info")
 apli = Flask()
 
 
