@@ -1,37 +1,52 @@
 __author__ = 'Vincent Bathellier'
+
 import http.client
+
 from celery import Celery
 
-fileIP = input("Entrez le fichier d'adresse IP : ")
-host = OpenIP(fileIP)
-tache = Celery(taskToExecut, broker='amqp://guest:'+host+':1024//')
+tache = Celery('tasks', broker='amqp://guest:' + host + ':1025//')
 
-#fonction qui récupére un stript à  éxecuter
-@tache.task
-def fonc():
-    script = input("Entrez le script à éxécuter : ")
-    file = open(script).read()
 
-#fonction qui prend en paramètre une autre fonction et qui retourne le resultat
-def api(fonc):
-    result = fonc.delay(4,4)
-    return result.get()
+#fonction qui à pour but récupérer la charge des serveurs
+def ask(addressIP):
+    askserv = http.client.HTTPConnection(addressIP, 1025)
+    askserv.connect()
+    askserv.request('GET', 'index.html')
+    charge = askServ.getresponse()
+    if charge.status == 200:  #200 correspond au status OK
+        return charge.read()
 
 
 #fonction qui récupére les adresse IP et qui renvoi une adresse IP
-def OpenIP(filename):
+def openIP(filename):
     global IPviable
-    file = open(filename,"r")
-    for lignes in file:
-        IPviable = lignes
-        charge = ask(lignes)
+    file = open(filename, "r")
+    #à modifier : TQ charge sup à val on cherche un autre serveur
+    for lines in file:
+        IPviable = lines
+        charge = ask(lines)
     return IPviable
 
-#fonction qui à pour but récupérer la charge des serveurs
-def ask(addIP):
-    askServ = http.client.HTTPConnection(addIP, 1025 )
-    askServ.connect()
-    askServ.request('GET','index.html')
-    chargeServ = askServ.getresponse()
-    if chargeServ.status == 200: #200 correspond au status OK
-         return (chargeServ.read())
+
+#fonction qui récupére un stript à  éxecuter
+def func():
+    script = input("Entrez le script à éxécuter : ")
+    file = open(script).read()
+    return file
+
+
+@tache.task
+#fonction qui va contenir le code à exécuter
+def funcret(file):
+    return eval(file)
+
+
+#fonction qui prend en paramètre une autre fonction et qui retourne le resultat
+def api():
+    file = func()
+    result = funcret(file).delay(4, 4)
+    return result.get()
+
+
+fileIP = input("Entrez le fichier d'adresse IP : ")
+host = openIP(fileIP)
