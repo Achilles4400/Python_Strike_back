@@ -12,7 +12,7 @@ tache = Celery('tasks', broker='amqp://guest:' + host + ':1025//')
 
 #fonction qui à pour but récupérer la charge des serveurs
 def ask(addressIP):
-    askserv = http.client.HTTPConnection(addressIP, 1025)
+    askserv = http.client.HTTPConnection(addressIP, 5000)
     askserv.connect()
     askserv.request('GET', "chargeCPU.html")
     charge = askServ.getresponse()
@@ -44,11 +44,9 @@ def func():
 def funcret(file):
     return eval(file)
 
-
+@celery.task
 #fonction qui prend en paramètre une autre fonction et qui retourne le resultat
 def api():
     file = func()
     result = funcret(file).delay(4, 4)
     return result.get()
-
-
