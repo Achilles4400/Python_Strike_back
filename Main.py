@@ -1,3 +1,6 @@
 __author__ = 'Vincent Bathellier'
 
-print("Hello world !")
+from os import popen
+path = 'C:\Users\JUMEAUX\Documents\GitHub\Python_Strike_back\server.py'
+popen("sc create ControlCPU binpath= "+path+"")
+

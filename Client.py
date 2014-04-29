@@ -32,11 +32,14 @@ def ask(addressIP):
 #fonction qui récupére les adresse IP et qui renvoi une adresse IP
 def openIP(filename):
     global IPviable
+    chargeserv = 100
     file = open(filename, "r")
-    #à modifier : TQ charge sup à val on cherche un autre serveur
     for lines in file:
-        IPviable = lines
         charge = ask(lines)
+        #on prend la machine qui à le processeur le moins chargé
+        if chargeserv >= charge:
+            chargeserv = charge
+            IPviable = lines
     file.close()
     return IPviable
 
