@@ -5,7 +5,7 @@ from time import sleep
 
 #lancement du worker
 #trouver ce qu'il faut mettre à la place de proj
-#os.popen("celery -A Client worker --loglevel=info")
+popen("celery -A WorkerCelery worker -B --loglevel=info")
 
 
 #fonction qui à pour but de recupèrer la charge du processeur et de la mettre dans un fichier html

@@ -1,12 +1,7 @@
 __author__ = 'Vincent Bathellier'
 
 import urllib2
-from celery import Celery
-
-
-fileIP = input("Entrez le fichier d'adresse IP : ")
-host = openIP(fileIP)
-tache = Celery('tasks', broker='amqp://guest:' + host + ':1025//')
+import WorkerCelery
 
 
 def ask(addressIP):
@@ -51,15 +46,9 @@ def func():
     return file
 
 
-@tache.task
-#fonction qui va contenir le code à exécuter
-def funcret(file):
-    return eval(file)
-
-
 @celery.task
 #fonction qui prend en paramètre une autre fonction et qui retourne le resultat
 def api():
     file = func()
-    result = funcret(file).delay(4, 4)
+    result = WorkerCelery.funcret(file).delay(4, 4)
     return result.get()
