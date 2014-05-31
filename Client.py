@@ -1,27 +1,34 @@
+ # -*- coding: utf-8 -*-
 __author__ = 'Vincent Bathellier'
 
 import urllib2
 import WorkerCelery
+import celery
+import jsonrpclib
+
 
 
 def ask(addressIP):
     global charge
-    response = urllib2.urlopen('http://' + addressIP + ':1025/chargeCPU.html')
-    charge = response.read()
-    print(charge)
+    server = jsonrpclib.Server('http://' + addressIP + ':8080')
+    charge = server.can_receive_task()
+    if charge:
+        print("Serveur is OK for computing")
+    else:
+        print("Serveur is non-OK for computing")
     return charge
 
 
-"""
-#fonction qui à pour but récupérer la charge des serveurs
-def ask(addressIP):
-    askserv = http.client.HTTPConnection(addressIP, 5000)
-    askserv.connect()
-    askserv.request('GET', "chargeCPU.html")
-    charge = askServ.getresponse()
-    if charge.status == 200:  #200 correspond au status OK
-        return charge.read()
-"""
+
+# #fonction qui à pour but récupérer la charge des serveurs
+# def ask(addressIP):
+#     askserv = http.client.HTTPConnection(addressIP, 5000)
+#     askserv.connect()
+#     askserv.request('GET', "chargeCPU.html")
+#     charge = askServ.getresponse()
+#     if charge.status == 200:  #200 correspond au status OK
+#         return charge.read()
+
 
 
 #fonction qui récupére les adresse IP et qui renvoi une adresse IP
