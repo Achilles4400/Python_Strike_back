@@ -8,21 +8,12 @@ from os import popen
 import psutil
 from jsonrpclib.SimpleJSONRPCServer import SimpleJSONRPCServer
 
+high_limit = 30
+
+
 def chargeproc():
     """Fonction qui à pour but de recupèrer la charge du
     processeur et de la mettre dans un fichier html."""
-
-    #récuperation de la charge du CPU
-    # com = popen("wmic cpu get LoadPercentage /format:value")
-    # result = com.readlines()
-    # for lines in result:
-    #     if lines != '\n':
-    #         CPU = lines
-    # CPU = CPU[15:]
-    # chargeCPU = open("C:\Apache24\htdocs\chargecpu.html", "w")
-    # chargeCPU.write(CPU)
-    # print(CPU)
-    # chargeCPU.close()
 
     #Recupere la charge pour chaque coeur du PC fonctionne sous
     #Windows, Linux, MacOSX, on preferera cette facon de faire
@@ -34,8 +25,8 @@ def chargeproc():
     #On verifie si au moins un processeur n'est pas trop utilisé, ici
     #inferieur a 10%, si oui on retourne True sinon on retourne False
     for cpuload in cpuloads:
-        if cpuload < 10.0:
-            return True
+        if cpuload < high_limit:
+            return cpuload
     return False
 
 #Definition du main en python
