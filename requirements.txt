@@ -1,0 +1,3 @@
+celery
+psutil
+jsonrpclib
