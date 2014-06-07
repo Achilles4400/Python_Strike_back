@@ -1,7 +1,6 @@
  # -*- coding: utf-8 -*-
 __author__ = 'Vincent Bathellier'
 
-import Client
 from celery import Celery
 
 #choix du serveur sur lequel nous allons envoyer

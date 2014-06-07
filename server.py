@@ -4,7 +4,6 @@
 
 __author__ = 'Vincent Bathellier'
 
-from os import popen
 import psutil
 from jsonrpclib.SimpleJSONRPCServer import SimpleJSONRPCServer
 
@@ -20,7 +19,7 @@ def chargeproc():
     #pour rendre le programme utilisable sous tout les OS.
     cpuloads = psutil.cpu_percent(0.0, True)
     #Affiche le resultat uniquement pour le fun et pour la partie educative
-    print cpuloads
+    print (cpuloads)
 
     #On verifie si au moins un processeur n'est pas trop utilisé, ici
     #inferieur a 10%, si oui on retourne True sinon on retourne False

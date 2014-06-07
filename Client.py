@@ -1,14 +1,11 @@
  # -*- coding: utf-8 -*-
 __author__ = 'Vincent Bathellier'
 
-import urllib2
-import WorkerCelery
-import celery
 import jsonrpclib
 
 
 def ask(addressIP):
-    print "scanning " +addressIP
+    print ("scanning " +addressIP)
     import signal
 
     def timeout():
@@ -39,7 +36,7 @@ def openIP(filename):
     file = open(filename, "r")
     for lines in file:
         charge = ask(lines)
-        print lines + " charge: " + str(charge)
+        print (lines + " charge: " + str(charge))
         if charge is False:
             continue
         #on prend la machine qui à le processeur le moins chargé
@@ -63,7 +60,7 @@ def api_call_code(code):
     from celery import Celery
     if not good_ip:
         return "ERROR 1: no server avaiable!!"
-    print good_ip
+    print (good_ip)
 
     my_celery = Celery(broker="amqp://guest:guest@"+good_ip+":5672//", backend="amqp")
     return my_celery.send_task("WorkerCelery.run_func", (code,))
